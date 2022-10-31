@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
 
 const Moments = () => {
   return (

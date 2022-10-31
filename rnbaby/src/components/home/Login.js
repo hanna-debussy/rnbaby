@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import DismissKeyboardView from '../common/DismissKeyboardView';
 
 const Moments = () => {
   const [email, setEmail] = useState('');
@@ -44,55 +45,57 @@ const Moments = () => {
     // 키보드 올라와있을 때 원래는 키보드 바깥을 터치해도 키보드가 안 내려감
     // 또한 input에 focus 있을 때 input 바깥을 터치해도 키보드가 안 내려감
     // 이를 방지하기 위해 두 개로 감싸주는... 이상한 짓을 하게 되는데 이걸 컴포넌트화 하면 편하다
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView behavior="position">
-        <Text>로긘★</Text>
-        <View>
-          <Text>Email</Text>
-          <TextInput
-            value={email}
-            ref={emailRef}
-            placeholder="이메일을 입력하세요"
-            onChangeText={onChangeEmail}
-            style={styles.textInput}
-            importantForAutofill="yes"
-            keyboardType="email-address"
-            returnKeyType="next"
-            onSubmitEditing={() => {
-              passwordRef.current?.focus();
-            }}
-            blurOnSubmit={false}
-          />
-        </View>
-        <View>
-          <Text>비밀번호</Text>
-          <TextInput
-            value={password}
-            ref={passwordRef}
-            placeholder="비밀번호를 입력하세요"
-            onChangeText={onChangePassword}
-            style={styles.textInput}
-            secureTextEntry
-            importantForAutofill="yes"
-            keyboardType="decimal-pad"
-            returnKeyType="done"
-            onSubmitEditing={onSubmit}
-          />
-        </View>
-        <View>
-          <Pressable
-            onPress={onSubmit}
-            disabled={!getFilled}
-            style={
-              !getFilled
-                ? styles.loginBtn
-                : StyleSheet.compose(styles.loginBtn, styles.loginBtnActive)
-            }>
-            <Text>로그인</Text>
-          </Pressable>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    //   <KeyboardAvoidingView behavior="position">
+    <DismissKeyboardView>
+      <Text>로긘★</Text>
+      <View>
+        <Text>Email</Text>
+        <TextInput
+          value={email}
+          ref={emailRef}
+          placeholder="이메일을 입력하세요"
+          onChangeText={onChangeEmail}
+          style={styles.textInput}
+          importantForAutofill="yes"
+          keyboardType="email-address"
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            passwordRef.current?.focus();
+          }}
+          blurOnSubmit={false}
+        />
+      </View>
+      <View>
+        <Text>비밀번호</Text>
+        <TextInput
+          value={password}
+          ref={passwordRef}
+          placeholder="비밀번호를 입력하세요"
+          onChangeText={onChangePassword}
+          style={styles.textInput}
+          secureTextEntry
+          importantForAutofill="yes"
+          keyboardType="decimal-pad"
+          returnKeyType="done"
+          onSubmitEditing={onSubmit}
+        />
+      </View>
+      <View>
+        <Pressable
+          onPress={onSubmit}
+          disabled={!getFilled}
+          style={
+            !getFilled
+              ? styles.loginBtn
+              : StyleSheet.compose(styles.loginBtn, styles.loginBtnActive)
+          }>
+          <Text>로그인</Text>
+        </Pressable>
+      </View>
+    </DismissKeyboardView>
+    //   </KeyboardAvoidingView>
+    // </TouchableWithoutFeedback>
   );
 };
 
